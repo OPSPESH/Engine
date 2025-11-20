@@ -47,7 +47,8 @@ bullets = {
     4:0,
     5:0
 }
-b,i
+
+
 bt1 = Turtle()
 bt1.shape("circle")
 bt1.color("red")

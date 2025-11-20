@@ -1,11 +1,18 @@
-bullets = {
-    1:0,
-    2:0,
-    3:0,
-    4:0,
-    5:0
-}
+import turtle
 
-for i in range(1,6):
-    if bullets[i] == 1:
-        b1.fire
+
+file = "assets/gif/sa1.gif"
+turtle.register_shape(file)
+
+turtle.shape(file)
+
+s = turtle.Screen()
+s.setup(640,480)
+s.bgcolor('black')
+
+ship = turtle.Turtle()
+ship.shape("triangle")
+ship.color("white")
+ship.penup() 
+
+turtle.done()
