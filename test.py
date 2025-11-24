@@ -1,18 +1,8 @@
 import turtle
 
+a1 = turtle.Turtle()
+a2 = turtle.Turtle()
+a = [a1.forward(100), a2.forward(100)]
 
-file = "assets/gif/sa1.gif"
-turtle.register_shape(file)
-
-turtle.shape(file)
-
-s = turtle.Screen()
-s.setup(640,480)
-s.bgcolor('black')
-
-ship = turtle.Turtle()
-ship.shape("triangle")
-ship.color("white")
-ship.penup() 
-
-turtle.done()
+for i in a:
+    a[i]

@@ -11,6 +11,13 @@ ship.shape("triangle")
 ship.color("white")
 ship.penup() 
 
+b0 = Turtle()
+b0.shape("circle")
+b0.color("red")
+b0.penup()
+b0.hideturtle()
+b0.turtlesize(0.5)
+
 b1 = Turtle()
 b1.shape("circle")
 b1.color("red")
@@ -39,13 +46,6 @@ b4.penup()
 b4.hideturtle()
 b4.turtlesize(0.5)
 
-b5 = Turtle()
-b5.shape("circle")
-b5.color("red")
-b5.penup()
-b5.hideturtle()
-b5.turtlesize(0.5)
-
 
 turtle.register_shape("assets/gif/ba0.gif")
 turtle.register_shape("assets/gif/ba1.gif")
@@ -55,6 +55,10 @@ turtle.register_shape("assets/gif/sa1.gif")
 turtle.register_shape("assets/gif/sa2.gif")
 turtle.register_shape("assets/gif/enemy.gif")
 
+a1 = Turtle()
+a1.shape("assets/gif/sa0.gif")
+a1.penup()
+a1.hideturtle()
 
 
 
