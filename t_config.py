@@ -46,7 +46,6 @@ b4.penup()
 b4.hideturtle()
 b4.turtlesize(0.5)
 
-
 turtle.register_shape("assets/gif/ba0.gif")
 turtle.register_shape("assets/gif/ba1.gif")
 turtle.register_shape("assets/gif/ba2.gif")
@@ -55,14 +54,79 @@ turtle.register_shape("assets/gif/sa1.gif")
 turtle.register_shape("assets/gif/sa2.gif")
 turtle.register_shape("assets/gif/enemy.gif")
 
+a0 = Turtle()
+a0.shape("assets/gif/ba0.gif")
+a0.penup()
+a0.hideturtle()
+
 a1 = Turtle()
-a1.shape("assets/gif/sa0.gif")
+a1.shape("assets/gif/ba0.gif")
 a1.penup()
 a1.hideturtle()
 
+a2 = Turtle()
+a2.shape("assets/gif/ba0.gif")
+a2.penup()
+a2.hideturtle()
 
+a3 = Turtle()
+a3.shape("assets/gif/ba0.gif")
+a3.penup()
+a3.hideturtle()
 
+a4 = Turtle()
+a4.shape("assets/gif/ba0.gif")
+a4.penup()
+a4.hideturtle()
 
+a5 = Turtle()
+a5.shape("assets/gif/ba0.gif")
+a5.penup()
+a5.hideturtle()
 
+a6 = Turtle()
+a6.shape("assets/gif/ba0.gif")
+a6.penup()
+a6.hideturtle()
+
+a7 = Turtle()
+a7.shape("assets/gif/ba0.gif")
+a7.penup()
+a7.hideturtle()
+
+a8 = Turtle()
+a8.shape("assets/gif/ba0.gif")
+a8.penup()
+a8.hideturtle()
+
+a9 = Turtle()
+a9.shape("assets/gif/ba0.gif")
+a9.penup()
+a9.hideturtle()
+
+a10 = Turtle()
+a10.shape("assets/gif/ba0.gif")
+a10.penup()
+a10.hideturtle()
+
+a11 = Turtle()
+a11.shape("assets/gif/ba0.gif")
+a11.penup()
+a11.hideturtle()
+
+a12 = Turtle()
+a12.shape("assets/gif/ba0.gif")
+a12.penup()
+a12.hideturtle()
+
+a13 = Turtle()
+a13.shape("assets/gif/ba0.gif")
+a13.penup()
+a13.hideturtle()
+
+a14 = Turtle()
+a14.shape("assets/gif/ba0.gif")
+a14.penup()
+a14.hideturtle()
 
 s.tracer(1)

@@ -1,8 +1,7 @@
 import turtle
 
-a1 = turtle.Turtle()
-a2 = turtle.Turtle()
-a = [a1.forward(100), a2.forward(100)]
-
-for i in a:
-    a[i]
+turtle.left(90)
+turtle.forward(100)
+ang = turtle.towards(0,0)
+turtle.seth(ang)
+print(ang)
