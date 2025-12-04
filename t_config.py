@@ -2,12 +2,12 @@ from turtle import *
 import turtle
 
 s = Screen()
-s.setup(640,480)
+# s.setaup(640,480)
 s.bgcolor('black')
 s.tracer(0)
 
 ship = Turtle()
-ship.shape("triangle")
+ship.shape("turtle")
 ship.color("white")
 ship.penup() 
 

@@ -4,7 +4,7 @@ import keyboard as k
 import random as r
 
 class body:
-    def __init__(self, turtle, type, instance, range=False, speed = False, shape=False, size = False):
+    def __init__(self, turtle, type, instance, range=False, speed = False, shape=False, size = False, position = False, heading=False):
         self.type = type
         self.turtle = turtle
         self.instance = instance
@@ -16,7 +16,10 @@ class body:
         if self.type == "astroid":
             self.speed = speed
             self.size = size
+            print(self.size)
             self.shape = shape
+            self.position = position
+            self.heading = heading
             self.astroid_position()
             self.turtle.shape(shape)
             self.turtle.showturtle()
@@ -38,34 +41,37 @@ class body:
             self.kill_instance()
     
     def astroid_position(self):
-        #position
-        w = r.randint(0,3)
-        match w:
-            case 0:
-                x = r.randint(-320, 320)
-                y = -240
-            case 1:
-                x = r.randint(-320, 320)
-                y = 240
-            case 2:
-                x = -320
-                y = r.randint(-320, 320)
-            case 3:
-                x = 320
-                y = r.randint(-320, 320)
-        
-        #rotation
-        ang = self.turtle.towards(0,0)
-        ang_modifier = r.randint(-10,10)
-        self.turtle.seth(ang+ang_modifier)
-        self.turtle.goto(x,y)
+        if self.position == False:
+        # position
+            w = r.randint(0,3)
+            match w:
+                case 0:
+                    x = r.randint(-320, 320)
+                    y = -240
+                case 1:
+                    x = r.randint(-320, 320)
+                    y = 240
+                case 2:
+                    x = -320
+                    y = r.randint(-320, 320)
+                case 3:
+                    x = 320
+                    y = r.randint(-320, 320)
+            
+            #rotation
+            ang = self.turtle.towards(0,0)
+            self.turtle.seth(ang)
+            self.turtle.goto(x,y)
+        else:
+            self.turtle.goto(self.position)
+            self.turtle.seth(self.heading)
 
     def move_astroid(self):
         self.turtle.forward(self.speed)
         self.kill_on_edge()
 
     def kill_on_edge(self):
-        if self.turtle.xcor() >= 320 or self.turtle.xcor() <= -330 or self.turtle.ycor() >= 220 or self.turtle.ycor() <= -230:
+        if self.turtle.xcor() >= 350 or self.turtle.xcor() <= -350 or self.turtle.ycor() >= 250 or self.turtle.ycor() <= -250:
             self.kill_instance()
 
     def collision(self):
@@ -126,63 +132,106 @@ class body:
                         case 0:
                             if self.turtle.distance(a0.turtle) < 60:
                                 if a0.size == 0:
-                                    respawn_astroid(a0.speed, a0.shape, a0.size)
+                                    respawn_astroid(a0.speed, a0.shape, a0.size, a0.turtle.pos(), a0.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 0, a0.turtle, a0)
                                 self.kill_instance()
                         case 1:
                             if self.turtle.distance(a1.turtle) < 60:
+                                if a1.size == 0:
+                                    respawn_astroid(a1.speed, a1.shape, a1.size, a1.turtle.pos(), a1.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 1, a1.turtle, a1)
                                 self.kill_instance()
                         case 2:
                             if self.turtle.distance(a2.turtle) < 60:
+                                if a2.size == 0:
+                                    respawn_astroid(a2.speed, a2.shape, a2.size, a2.turtle.pos(), a2.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 2, a2.turtle, a2)
                                 self.kill_instance()
                         case 3:
                             if self.turtle.distance(a3.turtle) < 60:
+                                if a3.size == 0:
+                                    respawn_astroid(a3.speed, a3.shape, a3.size, a3.turtle.pos(), a3.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 3, a3.turtle, a3)
                                 self.kill_instance()
                         case 4:
                             if self.turtle.distance(a4.turtle) < 60:
+                                if a4.size == 0:
+                                    respawn_astroid(a4.speed, a4.shape, a4.size, a4.turtle.pos(), a4.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 4, a4.turtle, a4)
                                 self.kill_instance()
                         case 5:
                             if self.turtle.distance(a5.turtle) < 60:
+                                if a5.size == 0:
+                                    respawn_astroid(a5.speed, a5.shape, a5.size, a5.turtle.pos(), a5.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 5, a5.turtle, a5)
                                 self.kill_instance()
                         case 6:
                             if self.turtle.distance(a6.turtle) < 60:
+                                if a6.size == 0:
+                                    respawn_astroid(a6.speed, a6.shape, a6.size, a6.turtle.pos(), a6.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 6, a6.turtle, a6)
                                 self.kill_instance()
                         case 7:
                             if self.turtle.distance(a7.turtle) < 60:
+                                if a7.size == 0:
+                                    respawn_astroid(a7.speed, a7.shape, a7.size, a7.turtle.pos(), a7.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 7, a7.turtle, a7)
                                 self.kill_instance()
                         case 8:
                             if self.turtle.distance(a8.turtle) < 60:
+                                if a8.size == 0:
+                                    respawn_astroid(a8.speed, a8.shape, a8.size, a8.turtle.pos(), a8.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 8, a8.turtle, a8)
                                 self.kill_instance()
                         case 9:
                             if self.turtle.distance(a9.turtle) < 60:
+                                if a9.size == 0:
+                                    respawn_astroid(a9.speed, a9.shape, a9.size, a9.turtle.pos(), a9.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 9, a9.turtle, a9)
                                 self.kill_instance()
                         case 10:
                             if self.turtle.distance(a10.turtle) < 60:
+                                if a10.size == 0:
+                                    respawn_astroid(a10.speed, a10.shape, a10.size, a10.turtle.pos(), a10.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 10, a10.turtle, a10)
                                 self.kill_instance()
                         case 11:
                             if self.turtle.distance(a11.turtle) < 60:
+                                if a11.size == 0:
+                                    respawn_astroid(a11.speed, a11.shape, a11.size, a11.turtle.pos(), a11.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 11, a11.turtle, a11)
                                 self.kill_instance()
                         case 12:
                             if self.turtle.distance(a12.turtle) < 60:
+                                if a12.size == 0:
+                                    respawn_astroid(a12.speed, a12.shape, a12.size, a12.turtle.pos(), a12.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 12, a12.turtle, a12)
                                 self.kill_instance()
                         case 13:
                             if self.turtle.distance(a13.turtle) < 60:
+                                if a13.size == 0:
+                                    respawn_astroid(a13.speed, a13.shape, a13.size, a13.turtle.pos(), a13.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 13, a13.turtle, a13)
                                 self.kill_instance()
                         case 14:
                             if self.turtle.distance(a14.turtle) < 60:
+                                if a14.size == 0:
+                                    respawn_astroid(a14.speed, a14.shape, a14.size, a14.turtle.pos(), a14.turtle.heading())
+                                    ti.sleep(0.05)
                                 self.kill_instance("astroid", 14, a14.turtle, a14)
                                 self.kill_instance()
 
@@ -279,7 +328,7 @@ def spawn_astroid():
     global a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14
     a=0
     shape = False
-    size = False
+    size = 0
     for i in range(15):
         select = astroids[i]
         if select == 0:
@@ -341,56 +390,53 @@ def spawn_astroid():
         case 14:
             a14 = body(t.a14, "astroid", 14, speed = speed, shape=shape, size = size)
 
-def respawn_astroid(speed, shape, size):
+def respawn_astroid(speed, shape, size, position, heading):
     global a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14
-    ti.sleep(0.1)
-    for i in range(2):
-        a = 0
-        for i in range(15):
-            select = astroids[i]
-            if select == 0:
-                a = i
-                astroids[i] = 1
-                break
-        match shape:
-            case "assets/ba0.gif":
-                shape = "assets/sa0.gif"
-            case "assets/ba1.gif":
-                shape = "assets/sa1.gif"
-            case "assets/ba2.gif":
-                shape = "assets/sa2.gif"
-
-        match a:
-            case 0:
-                a0 = body(t.a0, "astroid", 0, speed = speed+1, shape=shape, size = size+1)
-            case 1:
-                a1 = body(t.a1, "astroid", 1, speed = speed+1, shape=shape, size = size+1)
-            case 2:
-                a2 = body(t.a2, "astroid", 2, speed = speed+1, shape=shape, size = size+1)
-            case 3:
-                a3 = body(t.a3, "astroid", 3, speed = speed+1, shape=shape, size = size+1)
-            case 4:
-                a4 = body(t.a4, "astroid", 4, speed = speed+1, shape=shape, size = size+1)
-            case 5:
-                a5 = body(t.a5, "astroid", 5, speed = speed+1, shape=shape, size = size+1)
-            case 6:
-                a6 = body(t.a6, "astroid", 6, speed = speed+1, shape=shape, size = size+1)
-            case 7:
-                a7 = body(t.a7, "astroid", 7, speed = speed+1, shape=shape, size = size+1)
-            case 8:
-                a8 = body(t.a8, "astroid", 8, speed = speed+1, shape=shape, size = size+1)
-            case 9:
-                a9 = body(t.a9, "astroid", 9, speed = speed+1, shape=shape, size = size+1)
-            case 10:
-                a10 = body(t.a10, "astroid", 10, speed = speed+1, shape=shape, size = size+1)
-            case 11:
-                a11 = body(t.a11, "astroid", 11, speed = speed+1, shape=shape, size = size+1)
-            case 12:
-                a12 = body(t.a12, "astroid", 12, speed = speed+1, shape=shape, size = size+1)
-            case 13:
-                a13 = body(t.a13, "astroid", 13, speed = speed+1, shape=shape, size = size+1)
-            case 14:
-                a14 = body(t.a14, "astroid", 14, speed = speed+1, shape=shape, size = size+1)
+    a = 0
+    for i in range(15):
+        select = astroids[i]
+        if select == 0:
+            a = i
+            astroids[i] = 1
+            break
+    match shape:
+        case "assets/ba0.gif":
+            shape = "assets/sa0.gif"
+        case "assets/ba1.gif":
+            shape = "assets/sa1.gif"
+        case "assets/ba2.gif":
+            shape = "assets/sa2.gif"
+    match a:
+        case 0:
+            a0 = body(t.a0, "astroid", 0, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 1:
+            a1 = body(t.a1, "astroid", 1, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 2:
+            a2 = body(t.a2, "astroid", 2, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 3:
+            a3 = body(t.a3, "astroid", 3, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 4:
+            a4 = body(t.a4, "astroid", 4, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 5:
+            a5 = body(t.a5, "astroid", 5, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 6:
+            a6 = body(t.a6, "astroid", 6, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 7:
+            a7 = body(t.a7, "astroid", 7, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 8:
+            a8 = body(t.a8, "astroid", 8, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 9:
+            a9 = body(t.a9, "astroid", 9, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 10:
+            a10 = body(t.a10, "astroid", 10, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 11:
+            a11 = body(t.a11, "astroid", 11, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 12:
+            a12 = body(t.a12, "astroid", 12, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 13:
+            a13 = body(t.a13, "astroid", 13, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
+        case 14:
+            a14 = body(t.a14, "astroid", 14, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
 
 
 def move_astroid():
@@ -434,6 +480,7 @@ ship_speed = 0
 ship_heading = 0
 new_ship_heading = 0
 pressed = 0
+fired = 0
 bullet_timeout = 0
 end_condition = 0
 # 0 = not ended
@@ -443,29 +490,32 @@ end_condition = 0
 while True:
     t.s.tracer(0)
     pressed = 0
-    if k.is_pressed("w"):
+    if k.is_pressed("w") or k.is_pressed("up"):
         ship_heading = t.ship.heading()
         pressed = 1
         if ship_speed < 75:
             ship_speed += 5
     elif ship_speed != 0:
         ship_speed -= 1
-    if k.is_pressed("a"):
+    if k.is_pressed("a") or k.is_pressed("left"):
         t.ship.left(10)
         if pressed == 1:
             ship_heading = t.ship.heading()
-    if k.is_pressed("d"):
+    if k.is_pressed("d") or k.is_pressed("right"):
         t.ship.right(10)
         if pressed == 1:
             ship_heading = t.ship.heading()
     if k.is_pressed("space"):
-        if bullet_timeout == 0:
+        if bullet_timeout == 0 and fired == 0:
             spawn_bullet()
-            bullet_timeout = 10
+            bullet_timeout = 6
+            fired = 1
     if bullet_timeout != 0:
         bullet_timeout -= 1
     #astroid spawning 
-    spawn_chance = r.randint(0,5)  
+    if k.is_pressed("space") == False:
+        fired = 0
+    spawn_chance = r.randint(0,10)  
     if spawn_chance == 0:
         spawn_astroid()
     
