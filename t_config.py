@@ -1,8 +1,16 @@
 from turtle import *
 import turtle
 
+turtle.register_shape("assets/ba0.gif")
+turtle.register_shape("assets/ba1.gif")
+turtle.register_shape("assets/ba2.gif")
+turtle.register_shape("assets/sa0.gif")
+turtle.register_shape("assets/sa1.gif")
+turtle.register_shape("assets/sa2.gif")
+turtle.register_shape("assets/enemy.gif")
+
 s = Screen()
-# s.setaup(640,480)
+# s.setup(640,480)
 s.bgcolor('black')
 s.tracer(0)
 
@@ -10,6 +18,12 @@ ship = Turtle()
 ship.shape("turtle")
 ship.color("white")
 ship.penup() 
+
+alien = Turtle()
+alien.shape("assets/enemy.gif")
+alien.penup()
+alien.hideturtle()
+
 
 b0 = Turtle()
 b0.shape("circle")
@@ -45,14 +59,6 @@ b4.color("red")
 b4.penup()
 b4.hideturtle()
 b4.turtlesize(0.5)
-
-turtle.register_shape("assets/ba0.gif")
-turtle.register_shape("assets/ba1.gif")
-turtle.register_shape("assets/ba2.gif")
-turtle.register_shape("assets/sa0.gif")
-turtle.register_shape("assets/sa1.gif")
-turtle.register_shape("assets/sa2.gif")
-turtle.register_shape("assets/enemy.gif")
 
 a0 = Turtle()
 a0.penup()

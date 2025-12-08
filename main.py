@@ -4,24 +4,35 @@ import keyboard as k
 import random as r
 
 class body:
-    def __init__(self, turtle, type, instance, range=False, speed = False, shape=False, size = False, position = False, heading=False):
+    def __init__(self, turtle, type, instance, range=False, speed = False, shape=False, size = False, position = False, heading=False, owner=False):
         self.type = type
         self.turtle = turtle
         self.instance = instance
         if self.type == "bullet":
             self.range = range
+            self.owner=owner
+
+            match owner:
+                case "ship":
+                    self.turtle.goto(t.ship.xcor(), t.ship.ycor())
+                    self.turtle.setheading(t.ship.heading())
+                case "alien":
+                    self.turtle.goto(t.alien.xcor(), t.alien.ycor())
+                    self.turtle.seth(self.turtle.towards(ship.turtle))
             self.turtle.showturtle()
-            self.turtle.goto(t.ship.xcor(), t.ship.ycor())
-            self.turtle.setheading(t.ship.heading())
         if self.type == "astroid":
             self.speed = speed
             self.size = size
-            print(self.size)
             self.shape = shape
             self.position = position
             self.heading = heading
             self.astroid_position()
             self.turtle.shape(shape)
+            self.turtle.showturtle()
+        if self.type == "alien":
+            self.speed = speed
+            self.turtle.goto(position)
+            self.turtle.seth(heading)
             self.turtle.showturtle()
 
     def switch_sides(self):
@@ -33,12 +44,6 @@ class body:
             self.turtle.setpos(self.turtle.xcor(), -230)
         elif self.turtle.ycor() <= -230:
             self.turtle.setpos(self.turtle.xcor(), 220)
-
-    def bullet_fire(self):
-        self.range -= 10
-        self.turtle.forward(15)
-        if self.range <= 0:
-            self.kill_instance()
     
     def astroid_position(self):
         if self.position == False:
@@ -66,7 +71,21 @@ class body:
             self.turtle.goto(self.position)
             self.turtle.seth(self.heading)
 
-    def move_astroid(self):
+    def bullet_fire(self):
+        self.range -= 10
+        self.turtle.forward(15)
+        if self.range <= 0:
+            self.kill_instance()
+
+    def shoot_at_player(self):
+        # facing = self.turtle.towards(ship.turtle)
+        # og_heading = self.turtle.heading()
+        # self.turtle.seth(facing)
+        spawn_bullet("alien")
+        # self.turtle.seth(og_heading)
+
+
+    def move_bodies(self):
         self.turtle.forward(self.speed)
         self.kill_on_edge()
 
@@ -80,49 +99,109 @@ class body:
                 if astroids[i]:
                     match i:
                         case 0:
-                            if self.turtle.distance(a0.turtle) < 60:
+                            if a0.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30 
+                            if self.turtle.distance(a0.turtle) < hitbox:
                                 self.ship_die()
                         case 1:
-                            if self.turtle.distance(a1.turtle) < 60:
+                            if a1.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a1.turtle) < hitbox:
                                 self.ship_die() 
                         case 2:
-                            if self.turtle.distance(a2.turtle) < 60:
+                            if a2.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a2.turtle) < hitbox:
                                 self.ship_die()
                         case 3:
-                            if self.turtle.distance(a3.turtle) < 60:
+                            if a3.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a3.turtle) < hitbox:
                                 self.ship_die()
                         case 4:
-                            if self.turtle.distance(a4.turtle) < 60:
+                            if a4.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a4.turtle) < hitbox:
                                 self.ship_die()
                         case 5:
-                            if self.turtle.distance(a5.turtle) < 60:
+                            if a5.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a5.turtle) < hitbox:
                                 self.ship_die()
                         case 6:
-                            if self.turtle.distance(a6.turtle) < 60:
+                            if a6.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a6.turtle) < hitbox:
                                 self.ship_die()
                         case 7:
-                            if self.turtle.distance(a7.turtle) < 60:
+                            if a7.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a7.turtle) < hitbox:
                                 self.ship_die()
                         case 8:
-                            if self.turtle.distance(a8.turtle) < 60:
+                            if a8.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a8.turtle) < hitbox:
                                self.ship_die()
                         case 9:
-                            if self.turtle.distance(a9.turtle) < 60:
+                            if a9.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a9.turtle) < hitbox:
                                 self.ship_die()
                         case 10:
-                            if self.turtle.distance(a10.turtle) < 60:
+                            if a10.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a10.turtle) < hitbox:
                                 self.ship_die()
                         case 11:
-                            if self.turtle.distance(a11.turtle) < 60:
+                            if a11.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a11.turtle) < hitbox:
                                 self.ship_die()
                         case 12:
-                            if self.turtle.distance(a12.turtle) < 60:
+                            if a12.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a12.turtle) < hitbox:
                                 self.ship_die()
                         case 13:
-                            if self.turtle.distance(a13.turtle) < 60:
+                            if a13.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a13.turtle) < hitbox:
                                 self.ship_die()
                         case 14:
-                            if self.turtle.distance(a14.turtle) < 60:
+                            if a14.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 30
+                            if self.turtle.distance(a14.turtle) < hitbox:
                                 self.ship_die()
 
         elif self.type == "bullet":
@@ -247,6 +326,9 @@ class body:
                 case "astroid":
                     astroids[self.instance] = 0
                     self.turtle.hideturtle()
+                case "alien":
+                    aliens[self.instance] = 0
+                    self.turtle.hideturtle()
             del self
         else:
             match type:
@@ -283,7 +365,11 @@ astroids = {
     14:0
 }
 
-def spawn_bullet():
+aliens = {
+    0:0
+}
+
+def spawn_bullet(owner):
     global b0,b1,b2,b3,b4
     b=0
     for i in range(5):
@@ -294,15 +380,15 @@ def spawn_bullet():
             break
     match b:
         case 0:
-            b0 = body(t.b0, "bullet", 0, 200)
+            b0 = body(t.b0, "bullet", 0, 200, owner=owner)
         case 1:
-            b1 = body(t.b1, "bullet", 1, 200)
+            b1 = body(t.b1, "bullet", 1, 200, owner=owner)
         case 2:
-            b2 = body(t.b2, "bullet", 2, 200)
+            b2 = body(t.b2, "bullet", 2, 200, owner=owner)
         case 3:
-            b3 = body(t.b3, "bullet", 3, 200)
+            b3 = body(t.b3, "bullet", 3, 200, owner=owner)
         case 4:
-            b4 = body(t.b4, "bullet", 4, 200)
+            b4 = body(t.b4, "bullet", 4, 200, owner=owner)
 
 def fire_bullet():
     for i in range(5):
@@ -444,38 +530,55 @@ def move_astroid():
         if astroids[i] == 1:
             match i:
                 case 0:
-                    a0.move_astroid()
+                    a0.move_bodies()
                 case 1:
-                    a1.move_astroid()
+                    a1.move_bodies()
                 case 2:
-                    a2.move_astroid()
+                    a2.move_bodies()
                 case 3:
-                    a3.move_astroid()
+                    a3.move_bodies()
                 case 4:
-                    a4.move_astroid()
+                    a4.move_bodies()
                 case 5:
-                    a5.move_astroid()
+                    a5.move_bodies()
                 case 6:
-                    a6.move_astroid()
+                    a6.move_bodies()
                 case 7:
-                    a7.move_astroid()
+                    a7.move_bodies()
                 case 8:
-                    a8.move_astroid()
+                    a8.move_bodies()
                 case 9:
-                    a9.move_astroid()
+                    a9.move_bodies()
                 case 10:
-                    a10.move_astroid()
+                    a10.move_bodies()
                 case 11:
-                    a11.move_astroid()
+                    a11.move_bodies()
                 case 12:
-                    a12.move_astroid()
+                    a12.move_bodies()
                 case 13:
-                    a13.move_astroid()
+                    a13.move_bodies()
                 case 14:
-                    a14.move_astroid()
+                    a14.move_bodies()
 
+def spawn_alien():
+    global alien
+    # speed, heading, position
+    x, y = 0,0
+    pos = r.randint(0,1)
+    match pos:
+        case 0:
+            heading = 0
+            x = -340
+        case 1:
+            heading = 180
+            x = 340               
+    y = r.randint(-240,240)
+    position = (x,y)
+    speed = r.randint(5,8)
 
-ship_controller = body(t.ship, "ship", 0)
+    alien = body(turtle=t.alien,type="alien",instance=0, speed=speed, position=position, heading=heading)
+
+ship = body(t.ship, "ship", 0)
 ship_speed = 0
 ship_heading = 0
 new_ship_heading = 0
@@ -507,27 +610,38 @@ while True:
             ship_heading = t.ship.heading()
     if k.is_pressed("space"):
         if bullet_timeout == 0 and fired == 0:
-            spawn_bullet()
+            spawn_bullet("ship")
             bullet_timeout = 6
             fired = 1
     if bullet_timeout != 0:
         bullet_timeout -= 1
-    #astroid spawning 
     if k.is_pressed("space") == False:
         fired = 0
-    spawn_chance = r.randint(0,10)  
-    if spawn_chance == 0:
+
+    #astroid spawning   
+    if r.randint(0,15) == 0:
         spawn_astroid()
     
+    # alien spawing
+    if r.randint(0,20) == 0 and aliens[0] == 0:
+        spawn_alien()
+        aliens[0] = 1
+    
+    print(aliens[0])
 
     move_astroid()
     fire_bullet()
-    ship_controller.collision()
-    ship_controller.switch_sides()
+    if aliens[0] == 1:
+        alien.move_bodies()
+        if r.randint(0,25) == 0:
+            alien.shoot_at_player()
+    ship.collision()
+    ship.switch_sides()
     new_ship_heading = t.ship.heading()
     t.ship.seth(ship_heading)
     t.ship.forward(ship_speed/10)
     t.ship.seth(new_ship_heading)
+
     if k.is_pressed("esc"):
         end_condition = 2
         break
