@@ -1,6 +1,7 @@
 from turtle import *
 import turtle
 
+loaded = 0
 turtle.register_shape("assets/ba0.gif")
 turtle.register_shape("assets/ba1.gif")
 turtle.register_shape("assets/ba2.gif")
@@ -121,3 +122,4 @@ a14.penup()
 a14.hideturtle()
 
 s.tracer(1)
+loaded = 1
