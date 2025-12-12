@@ -1,0 +1,9 @@
+add alien #done
+add scoreing 
+proper death
+lives
+end screen
+
+s.window_height()
+s.window_width()
+add variable resolution
