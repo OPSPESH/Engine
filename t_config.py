@@ -11,7 +11,7 @@ turtle.register_shape("assets/sa2.gif")
 turtle.register_shape("assets/enemy.gif")
 
 s = Screen()
-# s.setup(640,480)
+s.setup(640,480)
 s.bgcolor('black')
 s.tracer(0)
 
@@ -24,6 +24,28 @@ alien = Turtle()
 alien.shape("assets/enemy.gif")
 alien.penup()
 alien.hideturtle()
+
+
+life1 = Turtle()
+life1.shape("turtle")
+life1.color("white")
+life1.left(90)
+life1.penup()
+life1.goto(-250, 210)
+
+life2 = Turtle()
+life2.shape("turtle")
+life2.color("white")
+life2.left(90)
+life2.penup()
+life2.goto(-275, 210)
+
+life3 = Turtle()
+life3.shape("turtle")
+life3.color("white")
+life3.left(90)
+life3.penup()
+life3.goto(-300, 210)
 
 
 b0 = Turtle()
@@ -122,4 +144,3 @@ a14.penup()
 a14.hideturtle()
 
 s.tracer(1)
-loaded = 1

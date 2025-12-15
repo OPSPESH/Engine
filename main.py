@@ -3,39 +3,52 @@ import time as ti
 import keyboard as k
 import random as r
 
+# Body class represents any moving game entity: ship, bullet, astroid, alien
 class body:
     def __init__(self, turtle, type, instance, range=False, speed = False, shape=False, size = False, position = False, heading=False, owner=False, lives=False):
+        # basic properties shared by all bodies
         self.type = type
         self.turtle = turtle
         self.instance = instance
+
+        # initialize ship-specific data
         if self.type == "ship":
             self.lives = lives
+
+        # initialize bullet-specific data and place it at its owner
         if self.type == "bullet":
             self.range = range
-            self.owner=owner
+            self.owner = owner
             match owner:
                 case "ship":
+                    # spawn bullet at ship's position and heading
                     self.turtle.goto(t.ship.xcor(), t.ship.ycor())
                     self.turtle.setheading(t.ship.heading())
                 case "alien":
+                    # spawn bullet at alien and aim toward player ship
                     self.turtle.goto(t.alien.xcor(), t.alien.ycor())
                     self.turtle.seth(self.turtle.towards(ship.turtle))
             self.turtle.showturtle()
+
+        # initialize astroid: size, shape, speed and position it
         if self.type == "astroid":
             self.speed = speed
             self.size = size
             self.shape = shape
             self.position = position
             self.heading = heading
-            self.astroid_position()
+            self.astroid_position()    # decide spawn location/orientation
             self.turtle.shape(shape)
             self.turtle.showturtle()
+
+        # initialize alien: set starting position and heading
         if self.type == "alien":
             self.speed = speed
             self.turtle.goto(position)
             self.turtle.seth(heading)
             self.turtle.showturtle()
 
+    # Wrap object around screen edges (used for ship)
     def switch_sides(self):
         if self.turtle.xcor() >= 320:
             self.turtle.setpos(-320, self.turtle.ycor())
@@ -46,9 +59,10 @@ class body:
         elif self.turtle.ycor() <= -230:
             self.turtle.setpos(self.turtle.xcor(), 220)
     
+    # Choose spawn position for astroid (random edge or provided position)
     def astroid_position(self):
         if self.position == False:
-        # position
+            # randomly select an edge and a coordinate on that edge
             w = r.randint(0,3)
             match w:
                 case 0:
@@ -64,34 +78,40 @@ class body:
                     x = 320
                     y = r.randint(-320, 320)
             
-            #rotation
+            # point toward center and move to spawn coordinate
             ang = self.turtle.towards(0,0)
             self.turtle.seth(ang)
             self.turtle.goto(x,y)
         else:
+            # use provided position / heading for respawned fragments
             self.turtle.goto(self.position)
             self.turtle.seth(self.heading)
 
+    # Move bullet forward and decrement its range; delete when out of range
     def bullet_fire(self):
         self.range -= 10
         self.turtle.forward(15)
         if self.range <= 0:
             self.kill_instance()
 
+    # Convenient wrapper to have alien spawn a bullet
     def shoot_at_player(self):
         spawn_bullet("alien")
 
-
+    # Generic movement for bodies with speed; also check edges
     def move_bodies(self):
         self.turtle.forward(self.speed)
         self.kill_on_edge()
 
+    # Remove small bodies that move off-screen
     def kill_on_edge(self):
         if self.turtle.xcor() >= 350 or self.turtle.xcor() <= -350 or self.turtle.ycor() >= 250 or self.turtle.ycor() <= -250:
             self.kill_instance()
 
+    # Collision handling for ship and bullets against astroids, alien interactions
     def collision(self):
         if self.type == "ship":
+            # check ship vs each astroid: use larger hitbox for small astroid fragments
             for i in range(15):
                 if astroids[i]:
                     match i:
@@ -202,12 +222,14 @@ class body:
                                 self.ship_die()
 
         elif self.type == "bullet":
+            # bullets check collisions with astroids and the ship/alien depending on owner
             for i in range(15):
                 if astroids[i]:
                     match i:
                         case 0:
                             if self.turtle.distance(a0.turtle) < 60:
                                 if a0.size == 0:
+                                    # spawn smaller pieces when a large astroid is destroyed
                                     respawn_astroid(a0.speed, a0.shape, a0.size, a0.turtle.pos(), a0.turtle.heading())
                                     ti.sleep(0.05)
                                 a0.kill_instance()
@@ -311,33 +333,92 @@ class body:
                                 a14.kill_instance()
                                 self.kill_instance()
 
+            # bullets from aliens damage the player ship
             if self.owner == "alien":
-                if self.turtle.distance(ship.turtle) < 30:
+                if self.turtle.distance(ship.turtle) < 30: 
                     self.kill_instance()
                     ti.sleep(0.01)
                     ship.ship_die()
+            # bullets from ship can hit the alien
             elif self.owner == "ship":
-                if self.turtle.distance(alien.turtle) < 40:
-                    alien.kill_instance()
-                    self.kill_instance()
+                if aliens[0] == 1:
+                    if self.turtle.distance(alien.turtle) < 40:
+                        alien.kill_instance()
+                        self.kill_instance()
             
-    # def reset():
-    #     for i in range(5):
-    #         if bullets[i]:
-    #             match i:
-    #                 case 0:
-                        
+    # reset removes ALL bullets, astroids and the alien (used when respawning or resetting)
+    def reset(self):
+        # clear bullet slots b0..b4 if present and remove their global variables
+        for i in range(5):
+            if bullets.get(i):
+                bullets[i] = 0
+                varname = f"b{i}"
+                inst = globals().get(varname)
+                if inst:
+                    try:
+                        inst.kill_instance()
+                    except Exception:
+                        # fallback: hide turtle if kill_instance fails
+                        try:
+                            inst.turtle.hideturtle()
+                        except Exception:
+                            pass
+                    globals().pop(varname, None)
+        
+        # clear astroid slots a0..a14 and remove their globals
+        for i in range(15):
+            if astroids.get(i):
+                astroids[i] = 0
+                varname = f"a{i}"
+                inst = globals().get(varname)
+                if inst:
+                    try:
+                        inst.kill_instance()
+                    except Exception:
+                        try:
+                            inst.turtle.hideturtle()
+                        except Exception:
+                            pass
+                    globals().pop(varname, None)
 
+        # clear alien if present
+        if aliens.get(0):
+            aliens[i] = 0
+            varname = "alien"
+            inst = globals().get(varname)
+            if inst:
+                try:
+                    inst.kill_instance()
+                except Exception:
+                    try:
+                        inst.turtle.hideturtle()
+                    except Exception:
+                        pass
+                globals().pop(varname, None)
+        
+                 
+    # handle ship death and change game state appropriately
     def ship_die(self):
         global state
         self.turtle.hideturtle()
         self.lives -= 1
+        match ship.lives:
+            case 0: 
+                t.life1.hideturtle()
+                t.life2.hideturtle()
+                t.life3.hideturtle()
+            case 1:
+                t.life1.hideturtle()
+                t.life2.hideturtle()
+            case 2:
+                t.life1.hideturtle()
         if self.lives == 0:
-            state = 4
+            state = 4   # end game
         else:
-            self.reset()
+            self.reset()  # remove objects and respawn later
             state = 2
 
+    # Generic delete for this body instance: mark slot free and hide turtle
     def kill_instance(self):
         match self.type:
             case "bullet":
@@ -351,9 +432,7 @@ class body:
                 self.turtle.hideturtle()
         del self
 
-                    
-
-
+# Dictionaries track active slots (0 = free, 1 = in use)
 bullets = {
     0:0,
     1:0,
@@ -362,31 +441,16 @@ bullets = {
     4:0
 }
 
-astroids = {
-    0:0,
-    1:0,
-    2:0,
-    3:0,
-    4:0,
-    5:0,
-    6:0,
-    7:0,
-    8:0,
-    9:0,
-    10:0,
-    11:0,
-    12:0,
-    13:0,
-    14:0
-}
+astroids = { i:0 for i in range(15) }  # track 15 astroid slots
 
 aliens = {
     0:0
 }
 
+# Spawn a bullet for owner ("ship" or "alien"), reusing first free slot
 def spawn_bullet(owner):
     global b0,b1,b2,b3,b4
-    b=0
+    b = 0
     for i in range(5):
         select = bullets[i]
         if select == 0:
@@ -405,6 +469,7 @@ def spawn_bullet(owner):
         case 4:
             b4 = body(t.b4, "bullet", 4, 200, owner=owner)
 
+# Update all active bullets: move and check collisions
 def fire_bullet():
     for i in range(5):
         if bullets[i] == 1:
@@ -425,9 +490,10 @@ def fire_bullet():
                     b4.bullet_fire()
                     b4.collision()
 
+# Spawn a new astroid in the first free slot; choose random shape/size
 def spawn_astroid():
     global a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14
-    a=0
+    a = 0
     shape = False
     size = 0
     for i in range(15):
@@ -491,6 +557,7 @@ def spawn_astroid():
         case 14:
             a14 = body(t.a14, "astroid", 14, speed = speed, shape=shape, size = size)
 
+# When large astroid breaks, spawn smaller fragments into a free slot
 def respawn_astroid(speed, shape, size, position, heading):
     global a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14
     a = 0
@@ -539,7 +606,7 @@ def respawn_astroid(speed, shape, size, position, heading):
         case 14:
             a14 = body(t.a14, "astroid", 14, speed = speed, shape=shape, size = size+1, position=position, heading=heading)
 
-
+# Move every active astroid
 def move_astroid():
     for i in range(15):
         if astroids[i] == 1:
@@ -575,9 +642,9 @@ def move_astroid():
                 case 14:
                     a14.move_bodies()
 
+# Spawn an alien at either left or right edge with random Y and speed
 def spawn_alien():
     global alien
-    # speed, heading, position
     x, y = 0,0
     pos = r.randint(0,1)
     match pos:
@@ -593,9 +660,11 @@ def spawn_alien():
 
     alien = body(turtle=t.alien,type="alien",instance=0, speed=speed, position=position, heading=heading)
 
+# game state and main ship initialization
 # 0 - menu, 1 - running, 2 - respawning ship, 3 - quit game
 state = 1
-ship = body(t.ship, "ship", 0, lives=3)
+score = 0
+ship = body(t.ship, "ship", 0, lives=4)
 ship_speed = 0
 ship_heading = 0
 new_ship_heading = 0
@@ -603,11 +672,10 @@ pressed = 0
 fired = 0
 bullet_timeout = 0
 
-
-
+# Main loop tick: input, spawning, movement, collisions, rendering
 def astroids_mainloop():
     global state, ship, ship_speed, ship_heading, new_ship_heading, pressed, fired, bullet_timeout
-    t.s.tracer(0)
+    t.s.tracer(0)  # turn off tracer for batch updates
     pressed = 0
     if k.is_pressed("w") or k.is_pressed("up"):
         ship_heading = t.ship.heading()
@@ -634,11 +702,11 @@ def astroids_mainloop():
     if k.is_pressed("space") == False:
         fired = 0
 
-    #astroid spawning   
+    # Randomly spawn astroids
     if r.randint(0,15) == 0:
         spawn_astroid()
 
-    # alien spawing
+    # Randomly spawn alien if none present
     if r.randint(0,20) == 0 and aliens[0] == 0:
         spawn_alien()
         aliens[0] = 1
@@ -662,20 +730,23 @@ def astroids_mainloop():
     t.s.tracer(1)
     ti.sleep(0.05)
 
+# Respawn ship at center after a death
 def respawn_ship():
-    global state
+    global state, ship_speed
     ship.turtle.goto(0,0)
     ship.turtle.seth(0)
+    ship_speed = 0
     ti.sleep(1)
     ship.turtle.showturtle()
     state = 1
+    
 
 def quit_game():
     exit()
     t.s.done()
 
+# Main program loop: handle life UI and switch states
 while True:
-    print(state)
     if state == 1:
         astroids_mainloop()
     elif state == 2:

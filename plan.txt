@@ -1,8 +1,15 @@
 add alien #done
 add scoreing 
-proper death
-lives
+points
+small 25
+lagre 100
+alien 400
+
+proper death #done
+lives #done
+life counters #done
 end screen
+lags as the game goes on # was hiding the turtles every frame 
 
 s.window_height()
 s.window_width()
