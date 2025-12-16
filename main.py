@@ -671,10 +671,11 @@ new_ship_heading = 0
 pressed = 0
 fired = 0
 bullet_timeout = 0
+alien_bullet_timeout = 0
 
 # Main loop tick: input, spawning, movement, collisions, rendering
 def astroids_mainloop():
-    global state, ship, ship_speed, ship_heading, new_ship_heading, pressed, fired, bullet_timeout
+    global state, ship, ship_speed, ship_heading, new_ship_heading, pressed, fired, bullet_timeout, alien_bullet_timeout
     t.s.tracer(0)  # turn off tracer for batch updates
     pressed = 0
     if k.is_pressed("w") or k.is_pressed("up"):
@@ -699,6 +700,8 @@ def astroids_mainloop():
             fired = 1
     if bullet_timeout != 0:
         bullet_timeout -= 1
+    if alien_bullet_timeout != 0:
+        alien_bullet_timeout -= 1
     if k.is_pressed("space") == False:
         fired = 0
 
@@ -716,8 +719,9 @@ def astroids_mainloop():
     if aliens[0] == 1:
         alien.move_bodies()
         alien.collision()
-        if r.randint(0,25) == 0:
+        if r.randint(0,25) == 0 and alien_fired==0:
             alien.shoot_at_player()
+            alien_bullet_timeout = 10
     ship.collision()
     ship.switch_sides()
     new_ship_heading = t.ship.heading()
