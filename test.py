@@ -1,6 +1,14 @@
 import turtle
 
-x = 100
-y = 100
-a = (x,y)
-turtle.goto(a)
+score = turtle.Turtle()
+# score.pencolor("white")
+score.hideturtle()
+score.penup()
+score.forward(100)
+score.write("Hello", font=("Comic Sans", 16, "bold"))
+
+turtle.backward(100)
+
+score.clear()
+
+turtle.exitonclick()

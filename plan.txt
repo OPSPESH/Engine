@@ -1,16 +1,11 @@
 add alien #done
-add scoreing 
-points
-small 25
-lagre 100
-alien 400
-
+add scoreing #done
 proper death #done
 lives #done
 life counters #done
 end screen
-lags as the game goes on # was hiding the turtles every frame 
-
+lags as the game goes on #was hiding the lives turtles every frame 
+make small astroids have a smaller hitbox #done
 s.window_height()
 s.window_width()
 add variable resolution

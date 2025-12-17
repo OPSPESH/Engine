@@ -90,7 +90,11 @@ class body:
     # Move bullet forward and decrement its range; delete when out of range
     def bullet_fire(self):
         self.range -= 10
-        self.turtle.forward(15)
+        if self.owner == "ship":
+            speed = 15
+        elif self.owner == "alien":
+            speed = 10
+        self.turtle.forward(speed)
         if self.range <= 0:
             self.kill_instance()
 
@@ -110,6 +114,7 @@ class body:
 
     # Collision handling for ship and bullets against astroids, alien interactions
     def collision(self):
+        global score
         if self.type == "ship":
             # check ship vs each astroid: use larger hitbox for small astroid fragments
             for i in range(15):
@@ -227,111 +232,230 @@ class body:
                 if astroids[i]:
                     match i:
                         case 0:
-                            if self.turtle.distance(a0.turtle) < 60:
+                            if a0.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a0.turtle) < hitbox:
                                 if a0.size == 0:
-                                    # spawn smaller pieces when a large astroid is destroyed
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
+                                if a0.size == 0:
                                     respawn_astroid(a0.speed, a0.shape, a0.size, a0.turtle.pos(), a0.turtle.heading())
                                     ti.sleep(0.05)
                                 a0.kill_instance()
-                                self.kill_instance()
                         case 1:
-                            if self.turtle.distance(a1.turtle) < 60:
+                            if a1.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a1.turtle) < hitbox:
+                                if a1.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a1.size == 0:
                                     respawn_astroid(a1.speed, a1.shape, a1.size, a1.turtle.pos(), a1.turtle.heading())
                                     ti.sleep(0.05)
                                 a1.kill_instance()
-                                self.kill_instance()
                         case 2:
-                            if self.turtle.distance(a2.turtle) < 60:
+                            if a2.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a2.turtle) < hitbox:
+                                if a2.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a2.size == 0:
                                     respawn_astroid(a2.speed, a2.shape, a2.size, a2.turtle.pos(), a2.turtle.heading())
                                     ti.sleep(0.05)
                                 a2.kill_instance()
-                                self.kill_instance()
                         case 3:
-                            if self.turtle.distance(a3.turtle) < 60:
+                            if a3.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a3.turtle) < hitbox:
+                                if a3.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a3.size == 0:
                                     respawn_astroid(a3.speed, a3.shape, a3.size, a3.turtle.pos(), a3.turtle.heading())
                                     ti.sleep(0.05)
                                 a3.kill_instance()
-                                self.kill_instance()
                         case 4:
-                            if self.turtle.distance(a4.turtle) < 60:
+                            if a4.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a4.turtle) < hitbox:
+                                if a4.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a4.size == 0:
                                     respawn_astroid(a4.speed, a4.shape, a4.size, a4.turtle.pos(), a4.turtle.heading())
                                     ti.sleep(0.05)
                                 a4.kill_instance()
-                                self.kill_instance()
                         case 5:
-                            if self.turtle.distance(a5.turtle) < 60:
+                            if a5.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a5.turtle) < hitbox:
+                                if a5.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a5.size == 0:
                                     respawn_astroid(a5.speed, a5.shape, a5.size, a5.turtle.pos(), a5.turtle.heading())
                                     ti.sleep(0.05)
                                 a5.kill_instance()
-                                self.kill_instance()
                         case 6:
-                            if self.turtle.distance(a6.turtle) < 60:
+                            if a6.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a6.turtle) < hitbox:
+                                if a6.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a6.size == 0:
                                     respawn_astroid(a6.speed, a6.shape, a6.size, a6.turtle.pos(), a6.turtle.heading())
                                     ti.sleep(0.05)
                                 a6.kill_instance()
-                                self.kill_instance()
                         case 7:
-                            if self.turtle.distance(a7.turtle) < 60:
+                            if a7.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a7.turtle) < hitbox:
+                                if a7.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a7.size == 0:
                                     respawn_astroid(a7.speed, a7.shape, a7.size, a7.turtle.pos(), a7.turtle.heading())
                                     ti.sleep(0.05)
                                 a7.kill_instance()
-                                self.kill_instance()
                         case 8:
-                            if self.turtle.distance(a8.turtle) < 60:
+                            if a8.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a8.turtle) < hitbox:
+                                if a8.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a8.size == 0:
                                     respawn_astroid(a8.speed, a8.shape, a8.size, a8.turtle.pos(), a8.turtle.heading())
                                     ti.sleep(0.05)
                                 a8.kill_instance()
-                                self.kill_instance()
                         case 9:
-                            if self.turtle.distance(a9.turtle) < 60:
+                            if a9.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a9.turtle) < hitbox:
+                                if a9.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a9.size == 0:
                                     respawn_astroid(a9.speed, a9.shape, a9.size, a9.turtle.pos(), a9.turtle.heading())
                                     ti.sleep(0.05)
                                 a9.kill_instance()
-                                self.kill_instance()
                         case 10:
-                            if self.turtle.distance(a10.turtle) < 60:
+                            if a10.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a10.turtle) < hitbox:
+                                if a10.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a10.size == 0:
                                     respawn_astroid(a10.speed, a10.shape, a10.size, a10.turtle.pos(), a10.turtle.heading())
                                     ti.sleep(0.05)
                                 a10.kill_instance()
-                                self.kill_instance()
                         case 11:
-                            if self.turtle.distance(a11.turtle) < 60:
+                            if a11.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a11.turtle) < hitbox:
+                                if a11.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a11.size == 0:
                                     respawn_astroid(a11.speed, a11.shape, a11.size, a11.turtle.pos(), a11.turtle.heading())
                                     ti.sleep(0.05)
                                 a11.kill_instance()
-                                self.kill_instance()
                         case 12:
-                            if self.turtle.distance(a12.turtle) < 60:
+                            if a12.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a12.turtle) < hitbox:
+                                if a12.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a12.size == 0:
                                     respawn_astroid(a12.speed, a12.shape, a12.size, a12.turtle.pos(), a12.turtle.heading())
                                     ti.sleep(0.05)
                                 a12.kill_instance()
-                                self.kill_instance()
                         case 13:
-                            if self.turtle.distance(a13.turtle) < 60:
+                            if a13.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a13.turtle) < hitbox:
+                                if a13.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a13.size == 0:
                                     respawn_astroid(a13.speed, a13.shape, a13.size, a13.turtle.pos(), a13.turtle.heading())
                                     ti.sleep(0.05)
                                 a13.kill_instance()
-                                self.kill_instance()
                         case 14:
-                            if self.turtle.distance(a14.turtle) < 60:
+                            if a14.size == 0:
+                                hitbox = 60
+                            else:
+                                hitbox = 20
+                            if self.turtle.distance(a14.turtle) < hitbox:
+                                if a14.size == 0:
+                                    score += 100
+                                else:
+                                    score += 25
+                                self.kill_instance()
                                 if a14.size == 0:
                                     respawn_astroid(a14.speed, a14.shape, a14.size, a14.turtle.pos(), a14.turtle.heading())
                                     ti.sleep(0.05)
                                 a14.kill_instance()
-                                self.kill_instance()
 
             # bullets from aliens damage the player ship
             if self.owner == "alien":
@@ -343,6 +467,7 @@ class body:
             elif self.owner == "ship":
                 if aliens[0] == 1:
                     if self.turtle.distance(alien.turtle) < 40:
+                        score += 400
                         alien.kill_instance()
                         self.kill_instance()
             
@@ -403,17 +528,17 @@ class body:
         self.turtle.hideturtle()
         self.lives -= 1
         match ship.lives:
-            case 0: 
+            case 1: 
                 t.life1.hideturtle()
                 t.life2.hideturtle()
                 t.life3.hideturtle()
-            case 1:
-                t.life1.hideturtle()
-                t.life2.hideturtle()
             case 2:
                 t.life1.hideturtle()
+                t.life2.hideturtle()
+            case 3:
+                t.life1.hideturtle()
         if self.lives == 0:
-            state = 4   # end game
+            state = 3   # end game
         else:
             self.reset()  # remove objects and respawn later
             state = 2
@@ -661,9 +786,8 @@ def spawn_alien():
     alien = body(turtle=t.alien,type="alien",instance=0, speed=speed, position=position, heading=heading)
 
 # game state and main ship initialization
-# 0 - menu, 1 - running, 2 - respawning ship, 3 - quit game
+# 0 - quit game, 1 - running, 2 - respawning ship, 3 - endscreen, 4 - main menu
 state = 1
-score = 0
 ship = body(t.ship, "ship", 0, lives=4)
 ship_speed = 0
 ship_heading = 0
@@ -672,6 +796,11 @@ pressed = 0
 fired = 0
 bullet_timeout = 0
 alien_bullet_timeout = 0
+score = 0
+# point disribution
+# small astroid = 25 
+# large astroid = 100
+# alien = 400
 
 # Main loop tick: input, spawning, movement, collisions, rendering
 def astroids_mainloop():
@@ -710,7 +839,7 @@ def astroids_mainloop():
         spawn_astroid()
 
     # Randomly spawn alien if none present
-    if r.randint(0,20) == 0 and aliens[0] == 0:
+    if r.randint(0,200) == 0 and aliens[0] == 0 and score > 1000:
         spawn_alien()
         aliens[0] = 1
 
@@ -719,7 +848,7 @@ def astroids_mainloop():
     if aliens[0] == 1:
         alien.move_bodies()
         alien.collision()
-        if r.randint(0,25) == 0 and alien_fired==0:
+        if r.randint(0,25) == 0 and alien_bullet_timeout==0:
             alien.shoot_at_player()
             alien_bullet_timeout = 10
     ship.collision()
@@ -729,8 +858,10 @@ def astroids_mainloop():
     t.ship.forward(ship_speed/10)
     t.ship.seth(new_ship_heading)
 
+    t.score.clear()
+    t.score.write(score, font=("Comic Sans", 16, "bold"))
     if k.is_pressed("esc"):
-        state = 3
+        state = 0
     t.s.tracer(1)
     ti.sleep(0.05)
 
@@ -749,14 +880,15 @@ def quit_game():
     exit()
     t.s.done()
 
-# Main program loop: handle life UI and switch states
+# Main program loop: handle switch states
 while True:
-    if state == 1:
-        astroids_mainloop()
-    elif state == 2:
-        respawn_ship()
-    elif state == 3:
-        quit_game()
-    elif state == 4:
-        # end screen eventually
-        quit_game()
+    match state:
+        case 0:
+            quit_game()
+        case 1:
+            astroids_mainloop()
+        case 2:
+            respawn_ship()
+        case 3:
+            quit_game()
+            # end screen
