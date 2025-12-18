@@ -3,9 +3,6 @@ add scoreing #done
 proper death #done
 lives #done
 life counters #done
-end screen
+end screen #done
 lags as the game goes on #was hiding the lives turtles every frame 
 make small astroids have a smaller hitbox #done
-s.window_height()
-s.window_width()
-add variable resolution
