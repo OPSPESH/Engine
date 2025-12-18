@@ -235,7 +235,7 @@ class body:
                             if a0.size == 0:
                                 hitbox = 60
                             else:
-                                hitbox = 20
+                                hitbox = 30
                             if self.turtle.distance(a0.turtle) < hitbox:
                                 if a0.size == 0:
                                     score += 100
@@ -250,7 +250,7 @@ class body:
                             if a1.size == 0:
                                 hitbox = 60
                             else:
-                                hitbox = 20
+                                hitbox = 30
                             if self.turtle.distance(a1.turtle) < hitbox:
                                 if a1.size == 0:
                                     score += 100
@@ -875,6 +875,28 @@ def respawn_ship():
     ship.turtle.showturtle()
     state = 1
     
+def end_screen():
+    global state, score
+    ship.reset()
+    t.game_over.write("Game Over!", align="center", font=("Comic Sans", 20))
+    t.restart.write("Play again, Y/N",align="center", font=("Comic Sans", 16))
+
+    while True:
+        if k.is_pressed("y"):
+            t.life1.showturtle()
+            t.life2.showturtle()
+            t.life3.showturtle()
+            t.game_over.clear()
+            t.restart.clear()
+            ship.lives = 4
+            score = 0
+            respawn_ship()
+            state = 1
+            break
+        if k.is_pressed("n"):
+            state = 0
+            break
+        ti.sleep(0.05)
 
 def quit_game():
     exit()
@@ -890,5 +912,5 @@ while True:
         case 2:
             respawn_ship()
         case 3:
-            quit_game()
+            end_screen()
             # end screen

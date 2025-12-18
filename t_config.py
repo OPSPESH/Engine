@@ -58,6 +58,16 @@ score.penup()
 score.goto(-307, 170)
 # score.write(1000, font=("Comic Sans", 16, "bold"))  # example usage
 
+game_over = Turtle()
+game_over.pencolor("white")
+game_over.hideturtle()
+
+restart = Turtle()
+restart.pencolor("white")
+restart.hideturtle()
+restart.penup()
+restart.goto(0,-20)
+
 # Bullet turtle pool (b0..b4) - pre-created, hidden, reused when firing
 b0 = Turtle()
 b0.shape("circle")
